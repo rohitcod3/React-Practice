@@ -3,6 +3,8 @@ import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import "./App.css";
 import { TodoProvider } from "./contexts/TodoContext";
+import TodoForm from "./components/TodoForm";
+import TodoItem from "./components/TodoItem";
 function App() {
   const [todos, setTodos] = useState([]);
 
@@ -44,7 +46,12 @@ function App() {
     <TodoProvider
       value={{ todos, addTodo, updateTodo, deleteTodo, toggleComplete }}
     >
-      <h1 className="text-3xl font-bold underline">Hello world</h1>
+      <TodoForm />
+      {todos.map((todo) => (
+        <div key={todo.id}>
+          <TodoItem todo={todo} />
+        </div>
+      ))}
     </TodoProvider>
   );
 }
