@@ -49,7 +49,7 @@ function App() {
       <TodoForm />
       {todos.map((todo) => (
         <div key={todo.id}>
-          <TodoItem todo={todo} />
+          <TodoItem todo={todo} className="" />
         </div>
       ))}
     </TodoProvider>
