@@ -31,6 +31,108 @@ const products = [
      image:'https://images.pexels.com/photos/4440574/pexels-photo-4440574.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'
  },
 ]  
+
+const fruits = [
+    {
+      "id": 1,
+      "name": "Apple"
+    },
+    {
+      "id": 2,
+      "name": "Banana"
+    },
+    {
+      "id": 3,
+      "name": "Orange"
+    },
+    {
+      "id": 4,
+      "name": "Mango"
+    },
+    {
+      "id": 5,
+      "name": "Pineapple"
+    },
+    {
+      "id": 6,
+      "name": "Strawberry"
+    },
+    {
+      "id": 7,
+      "name": "Blueberry"
+    },
+    {
+      "id": 8,
+      "name": "Grapes"
+    },
+    {
+      "id": 9,
+      "name": "Watermelon"
+    },
+    {
+      "id": 10,
+      "name": "Peach"
+    },
+    {
+      "id": 11,
+      "name": "Cherry"
+    },
+    {
+      "id": 12,
+      "name": "Pear"
+    },
+    {
+      "id": 13,
+      "name": "Kiwi"
+    },
+    {
+      "id": 14,
+      "name": "Pomegranate"
+    },
+    {
+      "id": 15,
+      "name": "Guava"
+    },
+    {
+      "id": 16,
+      "name": "Papaya"
+    },
+    {
+      "id": 17,
+      "name": "Coconut"
+    },
+    {
+      "id": 18,
+      "name": "Dragonfruit"
+    },
+    {
+      "id": 19,
+      "name": "Fig"
+    },
+    {
+      "id": 20,
+      "name": "Lychee"
+    }
+  ]
+  
+
+app.get('/api/fruits/', (req,res)=> {
+    let{_limit = 4 , _page = 1} = req.query // passing in default values
+    _limit = parseInt(_limit);
+    _page = parseInt(_page);
+
+    const startIndex = (_page - 1) * _limit;
+    const endIndex = startIndex + _limit;
+
+    const paginatedFruits = fruits.slice(startIndex, endIndex)
+    
+    setTimeout(() => {
+    res.json(paginatedFruits)
+    }, 3000)
+    
+
+})
+
 app.get('/api/products',(req,res) => {
 
 //    if(req.query.search){
