@@ -1,5 +1,6 @@
 import express from 'express'
-
+import Post from './models/Posts.js';
+import connectDB  from './config/db.js'
 const app = express();
 
 
@@ -115,12 +116,19 @@ const fruits = [
     }
   ]
   
+  app.use(express.json());
+  connectDB();
 
+  
 app.get('/api/fruits/', (req,res)=> {
     let{_limit = 4 , _page = 1} = req.query // passing in default values
     _limit = parseInt(_limit);
     _page = parseInt(_page);
 
+    if(!req.query._limit && !req.query._page){
+        res.json(fruits);
+        return
+    }
     const startIndex = (_page - 1) * _limit;
     const endIndex = startIndex + _limit;
 
@@ -132,6 +140,32 @@ app.get('/api/fruits/', (req,res)=> {
     
 
 })
+
+app.post('/api/posts', async (req,res) => {
+  try {
+    console.log("recieved data", req.body)
+      const postData =  req.body;
+     const {title, content, imageUrl} = postData;
+  
+     const newPost = new Post({title,content,image: imageUrl});
+     await newPost.save();
+     res.json({status:200, body: newPost})
+  } catch (error) {
+    console.log(error)
+  }
+})
+
+app.get('/api/getposts', async (req,res) => {
+    try {
+    const response = await Post.find({})
+    res.json(response)
+       
+    } catch (error) {
+      console.log(error)
+      res.status(500).json({message:"Internal server error"})
+    }
+  })
+
 
 app.get('/api/products',(req,res) => {
 
